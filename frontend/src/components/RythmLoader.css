@@ -1,0 +1,254 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto+Mono:wght@400;700&display=swap');
+
+  :root {
+    --neon-blue: #00f3ff;
+    --neon-pink: #ff00ff;
+    --neon-yellow: #ffee00;
+    --bg-dark: #050505;
+    --glass: rgba(255, 255, 255, 0.05);
+  }
+
+  .rhythm-loader-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--bg-dark);
+    color: rgb(0, 0, 0);
+    font-family: 'Roboto Mono', monospace;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Background Grid */
+  .grid-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 200%; height: 200%;
+    background-image:
+      linear-gradient(var(--glass) 1px, transparent 1px),
+      linear-gradient(90deg, var(--glass) 1px, transparent 1px);
+    background-size: 50px 50px;
+    transform: rotateX(60deg) translateY(-100px) translateZ(-200px);
+    animation: gridMove 2s linear infinite;
+    z-index: -2;
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  @keyframes gridMove {
+    0%   { transform: rotateX(60deg) translateY(0)    translateZ(-200px); }
+    100% { transform: rotateX(60deg) translateY(50px) translateZ(-200px); }
+  }
+
+  /* Loader View */
+  .loader-view {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    z-index: 10;
+  }
+
+  .loader-view.hidden {
+    opacity: 0;
+    transform: scale(1.1);
+    pointer-events: none;
+  }
+
+  /* Highway */
+  .highway-container {
+    position: relative;
+    width: 300px;
+    height: 60vh;
+    border-left: 2px solid rgba(255,255,255,0.1);
+    border-right: 2px solid rgba(255,255,255,0.1);
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+
+  .hit-line {
+    position: absolute;
+    bottom: 20px; left: 0;
+    width: 100%; height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 10px white;
+    z-index: 5;
+  }
+
+  .lane {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 25%;
+    border-right: 1px dashed rgba(255,255,255,0.1);
+  }
+  .lane:last-child { border-right: none; }
+
+  /* Notes */
+  .note {
+    position: absolute;
+    width: 80%; height: 40px;
+    left: 10%; top: -50px;
+    background: var(--neon-blue);
+    box-shadow: 0 0 15px var(--neon-blue);
+    border-radius: 4px;
+    animation: noteFall 1.5s linear forwards;
+    opacity: 0.9;
+  }
+  .note.pink   { background: var(--neon-pink);   box-shadow: 0 0 15px var(--neon-pink); }
+  .note.yellow { background: var(--neon-yellow);  box-shadow: 0 0 15px var(--neon-yellow); }
+
+  @keyframes noteFall {
+    0%   { transform: translateZ(200px) scale(3); opacity: 0; top: 0%; }
+    20%  { opacity: 1; }
+    100% { transform: translateZ(-200px) scale(0.5); top: 90%; opacity: 0; }
+  }
+
+  /* UI */
+  .loader-ui {
+    text-align: center;
+    width: 300px;
+    z-index: 20;
+  }
+
+  .status-text {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: white;
+    text-shadow: 0 0 10px var(--neon-blue);
+    margin-bottom: 15px;
+    animation: pulse 0.5s infinite alternate;
+  }
+
+  @keyframes pulse {
+    from { text-shadow: 0 0 5px var(--neon-blue); }
+    to   { text-shadow: 0 0 20px var(--neon-blue), 0 0 10px white; }
+  }
+
+  .progress-container {
+    width: 100%; height: 6px;
+    background: #333;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+    box-shadow: 0 0 10px var(--neon-pink);
+    transition: width 0.1s linear;
+  }
+
+  .percentage {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: var(--neon-blue);
+    text-align: right;
+  }
+
+  /* Main Content View */
+  .main-view {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease 0.5s;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .main-view.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .card {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #bd00ff;
+    padding: 3rem;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(189, 0, 255, 0.2);
+    max-width: 600px;
+    transform: translateY(20px);
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  
+
+
+  .main-view.visible .card {
+    transform: translateY(0);
+  }
+
+  .welcome-title {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff, #bd00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .welcome-desc {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  /* --- Continue Button --- */
+  .continue-btn {
+    appearance: none;
+    display: block; /* Centers it if parent is text-align center or flex */
+    margin: 24px auto 0; /* Top margin to separate from text */
+    padding: 14px 40px;
+
+    /* Typography */
+    font-family: 'Arial', sans-serif; /* Consider using a tech/bold font */
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #ffffff;
+
+    /* Visuals - Neon Gradient */
+    background: linear-gradient(135deg, #ff0055 0%, #ff00aa 100%);
+    border: 2px solid #ffffff;
+    border-radius: 4px; /* Sharp corners for tech feel, use 50px for pill shape */
+    
+    /* Effects - Glow */
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.6);
+
+    cursor: pointer;
+    
+    /* Animation */
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  .continue-btn:hover {
+    transform: scale(1.05) translateY(-2px); /* Slight pop up */
+    background: linear-gradient(135deg, #ff2277 0%, #ff22cc 100%);
+    box-shadow: 0 8px 25px rgba(255, 0, 85, 0.8), 0 0 10px #ff0055; /* Intense glow */
+  }
+
+  .continue-btn:active {
+    transform: scale(0.95); /* Pressed down effect */
+    box-shadow: 0 2px 10px rgba(255, 0, 85, 0.5);
+  }
+
+  /* Optional: Focus state for accessibility */
+  .continue-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 0, 170, 0.5);
+  }
