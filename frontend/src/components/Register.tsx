@@ -1,62 +1,79 @@
-import {useState} from 'react';
-import './Login.css';
+import { useState } from 'react';
+import './Register.css';
 
-function Register(){
-    const [form,setForm] = useState({
-        username: '',
-        password: '',
-        confirmPassword: '',
-        email: ''
-    });
+interface RegisterProps {
+  onSwitch: () => void;
+}
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
-        setForm(prevForm => ({
-            ...prevForm,
-            [name]: value
-        }));
-    };
+function Register({ onSwitch }: RegisterProps) {
+  const [form, setForm] = useState({
+    username: '',
+    password: '',
+    confirmPassword: '',
+    email: '',
+  });
 
-    const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();
-        // Here you would typically send the form data to your backend API
-        console.log('Form submitted:', form);
-    };  
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
-    return(
-        <div className="register-container">
-            <h2>Register</h2>
-            <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                value={form.username}
-                onChange={handleChange}
-            />
-            <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={form.email}
-                onChange={handleChange}
-            />
-            <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={form.password}
-                onChange={handleChange}
-            />
-            <input
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-                value={form.confirmPassword}
-                onChange={handleChange}
-            />
-            <button onClick={handleSubmit}>Register</button>
-        </div>
-    )
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    console.log('Form submitted:', form);
+  };
+
+  return (
+    <div className="register-container">
+      <h2>Register</h2>
+
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        value={form.username}
+        onChange={handleChange}
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={form.email}
+        onChange={handleChange}
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={form.password}
+        onChange={handleChange}
+      />
+
+      <input
+        type="password"
+        name="confirmPassword"
+        placeholder="Confirm Password"
+        value={form.confirmPassword}
+        onChange={handleChange}
+      />
+
+      <button onClick={handleSubmit}>Register</button>
+
+      <p>
+        Already have an account?{' '}
+        <span className="switch-link" onClick={onSwitch}>
+          Login
+        </span>
+      </p>
+    </div>
+  );
 }
 
 export default Register;

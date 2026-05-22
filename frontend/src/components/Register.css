@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 450px;
+  padding: 40px;
+
+  /* --- CENTERING CODE START --- */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* --- CENTERING CODE END --- */
+
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid var(--neon-pink);
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.15);
+}
+.register-container h2 {
+  font-family: 'Orbitron', sans-serif;
+  color: #ffffff;
+  text-align: center;
+  font-size: 2rem;
+  margin: 0 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px var(--neon-pink);
+}
+
+.register-container input {
+  width: 100%;
+  padding: 15px;
+  
+  /* Typography */
+  font-family: 'Roboto Mono', monospace;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #333;
+  border-radius: 4px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.register-container input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.register-container input:focus {
+  border-color: var(--neon-pink);
+  background: rgba(255, 0, 255, 0.05);
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+.register-container button {
+  appearance: none;
+  margin-top: 10px;
+  padding: 16px;
+  border: none;
+  border-radius: 4px;
+  
+  /* Typography */
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #ffffff;
+  cursor: pointer;
+  
+  /* Gradient */
+  background: linear-gradient(135deg, var(--neon-blue) 0%, #00a8ff 100%);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+  
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.register-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 243, 255, 0.8);
+  background: linear-gradient(135deg, #00f3ff 0%, #00a8ff 100%);
+}
+
+.register-container button:active {
+  transform: scale(0.98);
+}
